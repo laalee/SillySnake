@@ -15,6 +15,7 @@
 		E6433BB521F6C42D003E8419 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6433BB421F6C42D003E8419 /* main.m */; };
 		E6433BBF21F6C42D003E8419 /* SillySnakeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6433BBE21F6C42D003E8419 /* SillySnakeTests.m */; };
 		E6433BCA21F6C42D003E8419 /* SillySnakeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6433BC921F6C42D003E8419 /* SillySnakeUITests.m */; };
+		E6433BDF21F6F859003E8419 /* Snake.m in Sources */ = {isa = PBXBuildFile; fileRef = E6433BDE21F6F859003E8419 /* Snake.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		E6433BC521F6C42D003E8419 /* SillySnakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SillySnakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6433BC921F6C42D003E8419 /* SillySnakeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SillySnakeUITests.m; sourceTree = "<group>"; };
 		E6433BCB21F6C42D003E8419 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6433BDD21F6F859003E8419 /* Snake.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
+		E6433BDE21F6F859003E8419 /* Snake.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Snake.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,8 @@
 				E6433BB021F6C42D003E8419 /* LaunchScreen.storyboard */,
 				E6433BB321F6C42D003E8419 /* Info.plist */,
 				E6433BB421F6C42D003E8419 /* main.m */,
+				E6433BDD21F6F859003E8419 /* Snake.h */,
+				E6433BDE21F6F859003E8419 /* Snake.m */,
 			);
 			path = SillySnake;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6433BDF21F6F859003E8419 /* Snake.m in Sources */,
 				E6433BAA21F6C42C003E8419 /* ViewController.m in Sources */,
 				E6433BB521F6C42D003E8419 /* main.m in Sources */,
 				E6433BA721F6C42C003E8419 /* AppDelegate.m in Sources */,

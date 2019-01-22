@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "Snake.h"
 
 @interface SillySnakeTests : XCTestCase
 
@@ -14,24 +15,80 @@
 
 @implementation SillySnakeTests
 
-- (void)setUp {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+- (void)testDirectionLeftToUp {
+    
+    Snake *snake = [[Snake alloc] init];
+    
+    [snake changeDirection:UP];
+    
+    XCTAssertEqual(snake.direction, UP);
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+- (void)testDirectionLeftToDown {
+    
+    Snake *snake = [[Snake alloc] init];
+    
+    [snake changeDirection:DOWN];
+    
+    XCTAssertEqual(snake.direction, DOWN);
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)testDirectionLeftToLeft {
+    
+    Snake *snake = [[Snake alloc] init];
+    
+    [snake changeDirection:LEFT];
+    
+    XCTAssertEqual(snake.direction, LEFT);
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void)testDirectionLeftToRight {
+    
+    Snake *snake = [[Snake alloc] init];
+    
+    [snake changeDirection:RIGHT];
+    
+    XCTAssertEqual(snake.direction, LEFT);
+}
+
+- (void)testDirectionUpToUp {
+    
+    Snake *snake = [[Snake alloc] init];
+    
+    [snake changeDirection:UP];
+    [snake changeDirection:UP];
+    
+    XCTAssertEqual(snake.direction, UP);
+}
+
+- (void)testDirectionUpToLeft {
+    
+    Snake *snake = [[Snake alloc] init];
+    
+    [snake changeDirection:UP];
+    [snake changeDirection:LEFT];
+    
+    XCTAssertEqual(snake.direction, LEFT);
+}
+
+- (void)testDirectionUpToRight {
+    
+    Snake *snake = [[Snake alloc] init];
+    
+    [snake changeDirection:UP];
+    [snake changeDirection:RIGHT];
+    
+    XCTAssertEqual(snake.direction, RIGHT);
+}
+
+- (void)testDirectionUpToDown {
+    
+    Snake *snake = [[Snake alloc] init];
+    
+    [snake changeDirection:UP];
+    [snake changeDirection:DOWN];
+    
+    XCTAssertEqual(snake.direction, UP);
 }
 
 @end

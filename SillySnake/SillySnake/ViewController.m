@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "Snake.h"
 
 @interface ViewController ()
 
@@ -16,8 +17,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    Snake *s1 = [[Snake alloc] init];
+    
+    NSLog(@"WAIT");
 }
-
 
 @end
