@@ -16,11 +16,7 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    Snake *s1 = [[Snake alloc] init];
-    
-    NSLog(@"WAIT");
+    [super viewDidLoad];    
 }
 
 @end

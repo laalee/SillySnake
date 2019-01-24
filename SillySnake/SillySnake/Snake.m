@@ -8,52 +8,134 @@
 
 #import "Snake.h"
 #import <UIKit/UIKit.h>
-
-//@interface Snake()
-//
-//@end
-
-@implementation Dot
-- (id)initWithX:(int)x y:(int)y
-{
-    if (self = [super init]) {
-        self.x = x;
-        self.y = y;
-    }
-    return self;
-}
-@end
+#include <stdlib.h>
 
 @implementation Snake
 
-- (id) init {
-        
-    self.direction = LEFT;
+- (id) initWithDirection:(SnakeDirection) direction
+                  maxX:(int)maxX
+                  maxY:(int)maxY
+                  length:(int)length {
     
-    [self initSnakeBody];
+    self.direction = direction;
+    
+    self.maxX = maxX;
+    
+    self.maxY = maxY;
+    
+    self.body = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < length; i++) {
         
+        [self.body addObject:[self createDotWithX:(_maxX/2)+i y:_maxY/2]];
+    }
+    
+    self.fruit = [self generateFruit];
+    
     return self;
 }
 
-//- (Dot)makeDotWithX:(int)x andY:(int)y {
-//
-//    Dot dot;
-//
-//    dot.x = x;
-//    dot.y = y;
-//
-//    return dot;
-//}
-
-- (void)initSnakeBody {
+- (NSValue*)createDotWithX:(int)x y:(int)y {
     
-    Dot *dots[] = {
-        [[Dot alloc] initWithX:50 y:50],
-        [[Dot alloc] initWithX:100 y:100]
-    };
+    Dot dot;
+    dot.x = x;
+    dot.y = y;
+    
+    NSValue *nsValue = [NSValue valueWithBytes:&dot objCType:@encode(Dot)];
+    
+    return nsValue;
+}
 
-    for (int i = 0; i < sizeof(dots)/sizeof(dots[0]); i++)
-        [self.body addObject:[NSValue valueWithBytes:&dots[i] objCType:@encode(Dot)]];
+- (NSValue*)generateFruit {
+    
+    NSValue *food = [[NSValue alloc] init];
+    NSUInteger index = 0;
+    
+    do {
+        int randomX = arc4random_uniform(_maxX);
+        int randomY = arc4random_uniform(_maxY);
+        
+        food = [self createDotWithX:randomX y:randomY];
+        
+        index = [self.body indexOfObject:food];
+        
+    } while (index != NSNotFound);
+    
+    return food;
+}
+
+- (bool)move {
+    
+    NSValue *nextDot = [self getNextDot];
+    
+    bool added = [self addBody:nextDot];
+    
+    if ([nextDot isEqualToValue:self.fruit]) {
+        
+        self.fruit = [self generateFruit];
+        
+    } else {
+        
+        [self removeLastBody];
+    }
+    
+    return added;
+}
+
+- (bool)addBody:(NSValue *) dot {
+    
+    NSUInteger index = [self.body indexOfObject:dot];
+    
+    Dot dotType;
+    [dot getValue:&dotType];
+    int x = dotType.x;
+    int y = dotType.y;
+    
+    if ((index == NSNotFound)
+        && (x >= 0 && x <= _maxX)
+        && (y >= 0 && y <= _maxY)) {
+        
+        [self.body insertObject:dot atIndex:0];
+        
+        return YES;
+    }
+
+    return NO;
+}
+
+- (void)removeLastBody {
+    
+    [self.body removeLastObject];
+}
+
+- (NSValue*)getNextDot {
+    
+    NSValue *firstValue = self.body[0];
+    Dot firstDot;
+    [firstValue getValue:&firstDot];
+    int nextX = firstDot.x;
+    int nextY = firstDot.y;
+    
+    switch (self.direction) {
+        case RIGHT:
+            if (nextX == _maxX) nextX = 0;
+            else nextX += 1;
+            break;
+        case LEFT:
+            if (nextX == 0) nextX = _maxX;
+            else nextX -= 1;
+            break;
+        case UP:
+            if (nextY == 0) nextY = _maxY;
+            else nextY -= 1;
+            break;
+        case DOWN:
+            if (nextY == _maxY) nextY = 0;
+            else nextY += 1;
+            break;
+    }
+    
+    return [self createDotWithX:nextX y:nextY];
 }
 
 - (void)changeDirection:(SnakeDirection) gesture {
