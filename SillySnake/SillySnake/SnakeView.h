@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SnakeViewDelegate
-- (NSMutableArray*)getBody:(SnakeView *)view;
+- (NSMutableArray*)getSnake:(SnakeView *)view;
 - (NSValue*)getFruit:(SnakeView *)view;
 @end
 

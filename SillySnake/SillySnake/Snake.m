@@ -73,6 +73,8 @@
     if ([nextDot isEqualToValue:self.fruit]) {
         
         self.fruit = [self generateFruit];
+                
+        [self addBody:[self getNextDot]];
         
     } else {
         

@@ -15,7 +15,7 @@
     
     NSValue *fruit = [self.delegate getFruit:self];
     
-    NSMutableArray *body = [self.delegate getBody:self];
+    NSMutableArray *body = [self.delegate getSnake:self];
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     
