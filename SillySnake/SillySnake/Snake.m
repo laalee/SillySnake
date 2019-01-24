@@ -27,7 +27,7 @@
     
     for (int i = 0; i < length; i++) {
         
-        [self.body addObject:[self createDotWithX:(_maxX/2)+i y:_maxY/2]];
+        [self.body addObject:[self createDotWithX:(self.maxX/2)+i y:self.maxY/2]];
     }
     
     self.fruit = [self generateFruit];
@@ -52,8 +52,8 @@
     NSUInteger index = 0;
     
     do {
-        int randomX = arc4random_uniform(_maxX);
-        int randomY = arc4random_uniform(_maxY);
+        int randomX = arc4random_uniform(self.maxX);
+        int randomY = arc4random_uniform(self.maxY);
         
         food = [self createDotWithX:randomX y:randomY];
         
@@ -92,8 +92,8 @@
     int y = dotType.y;
     
     if ((index == NSNotFound)
-        && (x >= 0 && x <= _maxX)
-        && (y >= 0 && y <= _maxY)) {
+        && (x >= 0 && x <= self.maxX)
+        && (y >= 0 && y <= self.maxY)) {
         
         [self.body insertObject:dot atIndex:0];
         
@@ -118,19 +118,19 @@
     
     switch (self.direction) {
         case RIGHT:
-            if (nextX == _maxX) nextX = 0;
+            if (nextX == self.maxX) nextX = 0;
             else nextX += 1;
             break;
         case LEFT:
-            if (nextX == 0) nextX = _maxX;
+            if (nextX == 0) nextX = self.maxX;
             else nextX -= 1;
             break;
         case UP:
-            if (nextY == 0) nextY = _maxY;
+            if (nextY == 0) nextY = self.maxY;
             else nextY -= 1;
             break;
         case DOWN:
-            if (nextY == _maxY) nextY = 0;
+            if (nextY == self.maxY) nextY = 0;
             else nextY += 1;
             break;
     }
