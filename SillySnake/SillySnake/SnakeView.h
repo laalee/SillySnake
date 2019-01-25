@@ -14,12 +14,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SnakeViewDelegate
+
 - (NSMutableArray*)getSnake:(SnakeView *)view;
+
 - (NSValue*)getFruit:(SnakeView *)view;
+
 @end
 
 @interface SnakeView : UIView
+
 @property (weak, nonatomic) id <SnakeViewDelegate> delegate;
+
 @end
 
 NS_ASSUME_NONNULL_END
