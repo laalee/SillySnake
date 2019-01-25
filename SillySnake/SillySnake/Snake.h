@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSValue*)getNextDot;
 - (NSValue*)createDotWithX:(int)x y:(int)y;
 - (NSValue*)generateFruit;
+- (NSValue*)getFruit;
+- (NSMutableArray*)getSnakeBody;
 
 @end
 

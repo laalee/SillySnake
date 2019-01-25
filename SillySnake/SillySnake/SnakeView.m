@@ -11,6 +11,14 @@
 
 @implementation SnakeView
 
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    
+    [self registerSwipeGesture];
+    
+    return self;
+}
+
 - (void)drawRect:(CGRect)rect {
     
     NSValue *fruit = [self.delegate getFruit:self];
@@ -45,6 +53,45 @@
     [[UIColor colorWithRed:1 green:0 blue:0 alpha:1] set];
     
     CGContextFillPath(context);
+}
+
+- (void)registerSwipeGesture {
+    
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self addGestureRecognizer:swipeLeft];
+    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(didSwipe:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self addGestureRecognizer:swipeRight];
+    
+    UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc]  initWithTarget:self action:@selector(didSwipe:)];
+    swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
+    [self addGestureRecognizer:swipeUp];
+    
+    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
+    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+    [self addGestureRecognizer:swipeDown];
+}
+
+- (void)didSwipe:(UISwipeGestureRecognizer*)swipe {
+    
+    if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
+        
+        [self.delegate changeDirection:self to:LEFT];
+        
+    } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
+        
+        [self.delegate changeDirection:self to:RIGHT];
+        
+    } else if (swipe.direction == UISwipeGestureRecognizerDirectionUp) {
+        
+        [self.delegate changeDirection:self to:UP];
+        
+    } else if (swipe.direction == UISwipeGestureRecognizerDirectionDown) {
+        
+        [self.delegate changeDirection:self to:DOWN];
+    }
 }
 
 @end

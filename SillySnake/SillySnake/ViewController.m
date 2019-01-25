@@ -48,10 +48,8 @@
     self.snakeView = [[SnakeView alloc] initWithFrame:self.windowRect];
     
     self.snakeView.delegate = self;
-    
+        
     [self.view addSubview:self.snakeView];
-    
-    [self registerGestureForView:self.snakeView];
 }
 
 - (UIButton*)createStartButton {
@@ -80,13 +78,13 @@
     
     CGSize size = self.windowRect.size;
     
-    self.snake = [[Snake alloc] initWithDirection:LEFT maxX:size.width/21 maxY:size.height/21 length:2];
+    self.snake = [[Snake alloc] initWithDirection:LEFT maxX:size.width/21-1 maxY:size.height/21-1 length:2];
     
     [self addSnakeView];
     
     [self.startView removeFromSuperview];
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
 }
 
 - (void)updateTime:(NSTimer *)timer {
@@ -109,55 +107,21 @@
     }
 }
 
-- (void)registerGestureForView:(UIView*)view {
-    
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
-    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-    [view addGestureRecognizer:swipeLeft];
-    
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(didSwipe:)];
-    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-    [view addGestureRecognizer:swipeRight];
-    
-    UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc]  initWithTarget:self action:@selector(didSwipe:)];
-    swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
-    [view addGestureRecognizer:swipeUp];
-    
-    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
-    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
-    [view addGestureRecognizer:swipeDown];
-}
-
-- (void)didSwipe:(UISwipeGestureRecognizer*)swipe {
-    
-    if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
-        
-        [self.snake changeDirection:LEFT];
-        
-    } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
-        
-        [self.snake changeDirection:RIGHT];
-        
-    } else if (swipe.direction == UISwipeGestureRecognizerDirectionUp) {
-        
-        [self.snake changeDirection:UP];
-        
-    } else if (swipe.direction == UISwipeGestureRecognizerDirectionDown) {
-        
-        [self.snake changeDirection:DOWN];
-    }
-}
-
 #pragma mark - SnakeViewDelegate
 
 - (nonnull NSMutableArray *)getSnake:(nonnull SnakeView *)view {
 
-    return self.snake.body;
+    return [self.snake getSnakeBody];
 }
 
 - (nonnull NSValue *)getFruit:(nonnull SnakeView *)view {
     
-    return self.snake.fruit;
+    return [self.snake getFruit];
+}
+
+- (void)changeDirection:(SnakeView *)view to:(SnakeDirection)direction {
+    
+    [self.snake changeDirection:direction];
 }
 
 @end

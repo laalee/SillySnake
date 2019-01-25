@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Snake.h"
 
 @class SnakeView;
 
@@ -18,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray*)getSnake:(SnakeView *)view;
 
 - (NSValue*)getFruit:(SnakeView *)view;
+
+- (void)changeDirection:(SnakeView *)view to:(SnakeDirection)direction;
 
 @end
 

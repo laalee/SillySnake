@@ -35,6 +35,16 @@
     return self;
 }
 
+- (NSValue*)getFruit {
+    
+    return self.fruit;
+}
+
+- (NSMutableArray*)getSnakeBody {
+    
+    return self.body;
+}
+
 - (NSValue*)createDotWithX:(int)x y:(int)y {
     
     Dot dot;
