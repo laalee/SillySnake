@@ -16,7 +16,6 @@
 @property Snake *snake;
 @property NSTimer *timer;
 @property UIView *startView;
-@property CGRect windowRect;
 
 @end
 
@@ -25,36 +24,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.windowRect = [[UIScreen mainScreen] bounds];
-    
     [self addStartView];
 }
 
 - (void)addStartView {
     
-    self.startView = [[UIView alloc] initWithFrame:self.windowRect];
+    CGRect windowRect = [[UIScreen mainScreen] bounds];
+    
+    UIButton *button = [self createStartButtonWithRect:windowRect];
+    
+    self.startView = [[UIView alloc] initWithFrame:windowRect];
     
     [self.startView setBackgroundColor:[UIColor blackColor]];
-    
-    UIButton *button = [self createStartButton];
     
     [self.startView addSubview:button];
     
     [self.view addSubview:self.startView];
 }
 
-- (void)addSnakeView {
+- (UIButton*)createStartButtonWithRect:(CGRect)rect {
     
-    self.snakeView = [[SnakeView alloc] initWithFrame:self.windowRect];
-    
-    self.snakeView.delegate = self;
-        
-    [self.view addSubview:self.snakeView];
-}
-
-- (UIButton*)createStartButton {
-    
-    CGSize size = self.windowRect.size;
+    CGSize size = rect.size;
     
     CGRect buttonFrame = CGRectMake( size.width/3, size.height/3, size.width/3, size.height/5 );
     
@@ -76,15 +66,29 @@
 
 - (void)startButtonClicked:(UIButton*)sender {
     
-    CGSize size = self.windowRect.size;
+    CGSize size = self.view.safeAreaLayoutGuide.layoutFrame.size;
+
+    int maxX = size.width / 21 - 1;
+    int maxY = size.height / 21 - 1;
     
-    self.snake = [[Snake alloc] initWithDirection:LEFT maxX:size.width/21-1 maxY:size.height/21-1 length:2];
+    self.snake = [[Snake alloc] initWithDirection:LEFT maxX:maxX maxY:maxY length:2];
     
     [self addSnakeView];
     
     [self.startView removeFromSuperview];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
+}
+
+- (void)addSnakeView {
+    
+    CGRect rect = self.view.safeAreaLayoutGuide.layoutFrame;
+    
+    self.snakeView = [[SnakeView alloc] initWithFrame:rect];
+    
+    self.snakeView.delegate = self;
+    
+    [self.view addSubview:self.snakeView];
 }
 
 - (void)updateTime:(NSTimer *)timer {

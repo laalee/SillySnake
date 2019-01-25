@@ -27,9 +27,13 @@
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGContextSetFillColorWithColor(context, [UIColor colorWithRed:50 green:50 blue:50 alpha:1].CGColor);
+    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
+    
+    CGContextSetLineWidth(context, 5);
     
     CGContextFillRect(context, rect);
+    CGContextStrokeRect(context, rect);
     
     for (int i = 0; i < [body count]; i++) {
         
@@ -38,9 +42,9 @@
         [body[i] getValue:&dot];
         
         CGContextAddRect(context, CGRectMake(dot.x*21, dot.y*21, 20, 20));
-        
+
         [[UIColor colorWithRed:0 green:0 blue:0 alpha:1] set];
-        
+
         CGContextFillPath(context);
     }
     
