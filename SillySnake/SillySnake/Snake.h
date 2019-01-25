@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property int maxX;
 @property int maxY;
 @property NSValue *fruit;
+@property bool eat;
 
 - (id) initWithDirection:(SnakeDirection) direction
                   maxX:(int)x

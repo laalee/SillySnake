@@ -32,6 +32,8 @@
     
     self.fruit = [self generateFruit];
     
+    self.eat = NO;
+    
     return self;
 }
 
@@ -84,7 +86,11 @@
         
         self.fruit = [self generateFruit];
                 
-        [self addBody:[self getNextDot]];
+        self.eat = YES;
+        
+    } else if (self.eat) {
+        
+        self.eat = NO;
         
     } else {
         
