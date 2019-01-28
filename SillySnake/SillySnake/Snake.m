@@ -10,41 +10,57 @@
 #import <UIKit/UIKit.h>
 #include <stdlib.h>
 
+@interface Snake ()
+{
+    NSMutableArray *body;
+}
+@property SnakeDirection direction;
+//@property NSMutableArray *body;
+@property NSInteger maxX;
+@property NSInteger maxY;
+@property NSValue *fruit;
+@property bool eat;
+@end
+
 @implementation Snake
 
-- (id) initWithDirection:(SnakeDirection) direction
-                  maxX:(int)maxX
-                  maxY:(int)maxY
-                  length:(int)length {
-    
-    self.direction = direction;
-    
-    self.maxX = maxX;
-    
-    self.maxY = maxY;
-    
-    self.body = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < length; i++) {
+- (instancetype)initWithDirection:(SnakeDirection) direction
+                             maxX:(NSInteger)maxX
+                             maxY:(NSInteger)maxY
+                           length:(NSInteger)length
+{
+    self = [super init];
+    if (self) {
+        self.direction = direction;
+        self.maxX = maxX;
+        self.maxY = maxY;
+        body = [[NSMutableArray alloc] init];
         
-        [self.body addObject:[self createDotWithX:(self.maxX/2)+i y:self.maxY/2]];
+        for (int i = 0; i < length; i++) {
+            
+            [body addObject:[self createDotWithX:(self.maxX/2)+i y:self.maxY/2]];
+        }
+        
+        self.fruit = [self generateFruit];
+        
+        self.eat = NO;
     }
-    
-    self.fruit = [self generateFruit];
-    
-    self.eat = NO;
-    
     return self;
 }
 
-- (NSValue*)getFruit {
-    
-    return self.fruit;
-}
+//- (NSValue*)getFruit {
+//
+//    return self.fruit;
+//}
+//
+//- (NSArray*)getSnakeBody
+//{
+//    return self.body;
+//}
 
-- (NSMutableArray*)getSnakeBody {
-    
-    return self.body;
+- (NSArray *)body
+{
+    return [body copy];
 }
 
 - (NSValue*)createDotWithX:(int)x y:(int)y {
@@ -76,7 +92,7 @@
     return food;
 }
 
-- (bool)move {
+- (BOOL)move {
     
     NSValue *nextDot = [self getNextDot];
     
@@ -100,7 +116,7 @@
     return added;
 }
 
-- (bool)addBody:(NSValue *) dot {
+- (BOOL)addBody:(NSValue *) dot {
     
     NSUInteger index = [self.body indexOfObject:dot];
     
@@ -113,7 +129,7 @@
         && (x >= 0 && x <= self.maxX)
         && (y >= 0 && y <= self.maxY)) {
         
-        [self.body insertObject:dot atIndex:0];
+        [body insertObject:dot atIndex:0];
         
         return YES;
     }
@@ -122,8 +138,7 @@
 }
 
 - (void)removeLastBody {
-    
-    [self.body removeLastObject];
+    [body removeLastObject];
 }
 
 - (NSValue*)getNextDot {
@@ -158,7 +173,7 @@
 
 - (void)changeDirection:(SnakeDirection) gesture {
     
-    bool changed = YES;
+    BOOL changed = YES;
         
     switch (gesture) {
         case RIGHT:

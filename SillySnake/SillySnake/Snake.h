@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+//typedef NS_ENUM(NSUInteger, SnakeDirection) {
+//    SnakeDirectionRight,
+//    SnakeDirectionLeft,
+//    SnakeDirectionUp,
+//    SnakeDirectionDown
+//};
+
 typedef enum {
     RIGHT,
     LEFT,
@@ -23,27 +30,31 @@ typedef struct {
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Snake : NSObject
+@property (readonly) SnakeDirection direction;
+@property (readonly) NSArray *body;
+@property (readonly) NSInteger maxX;
+@property (readonly) NSInteger maxY;
+@property (readonly) NSValue *fruit;
+@property (readonly) BOOL eat;
 
-@property SnakeDirection direction;
-@property NSMutableArray *body;
-@property int maxX;
-@property int maxY;
-@property NSValue *fruit;
-@property bool eat;
+- (instancetype) initWithDirection:(SnakeDirection) direction
+                  maxX:(NSInteger)x
+                  maxY:(NSInteger)y
+                  length:(NSInteger)length;
 
-- (id) initWithDirection:(SnakeDirection) direction
-                  maxX:(int)x
-                  maxY:(int)y
-                  length:(int)length;
 - (void)changeDirection:(SnakeDirection) direction;
-- (bool)addBody:(NSValue *) dot;
-- (bool)move;
+- (BOOL)addBody:(NSValue *) dot;
+- (BOOL)move;
+
+@end
+
+@interface Snake (ForTesting)
 - (NSValue*)getNextDot;
-- (NSValue*)createDotWithX:(int)x y:(int)y;
+- (NSValue*)createDotWithX:(NSInteger)x y:(NSInteger)y;
 - (NSValue*)generateFruit;
 - (NSValue*)getFruit;
 - (NSMutableArray*)getSnakeBody;
-
 @end
+
 
 NS_ASSUME_NONNULL_END

@@ -116,17 +116,17 @@
 
 #pragma mark - SnakeViewDelegate
 
-- (nonnull NSMutableArray *)getSnake:(nonnull SnakeView *)view {
+- (nonnull NSMutableArray *)snakeBodyForSnakeView:(nonnull SnakeView *)view {
 
     return [self.snake getSnakeBody];
 }
 
-- (nonnull NSValue *)getFruit:(nonnull SnakeView *)view {
+- (nonnull NSValue *)fruitForSnakeView:(nonnull SnakeView *)view {
     
     return [self.snake getFruit];
 }
 
-- (void)changeDirection:(SnakeView *)view to:(SnakeDirection)direction {
+- (void)snakeView:(SnakeView *)view didChangeDirection:(SnakeDirection)direction {
     
     self.nextDirection = direction;    
 }

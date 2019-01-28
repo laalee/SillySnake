@@ -21,9 +21,9 @@
 
 - (void)drawRect:(CGRect)rect {
     
-    NSValue *fruit = [self.delegate getFruit:self];
+    NSValue *fruit = [self.delegate fruitForSnakeView:self];
     
-    NSMutableArray *body = [self.delegate getSnake:self];
+    NSArray *body = [self.delegate snakeBodyForSnakeView:self];
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -82,19 +82,19 @@
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
         
-        [self.delegate changeDirection:self to:LEFT];
+        [self.delegate snakeView:self didChangeDirection:LEFT];
         
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         
-        [self.delegate changeDirection:self to:RIGHT];
+        [self.delegate snakeView:self didChangeDirection:RIGHT];
         
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionUp) {
         
-        [self.delegate changeDirection:self to:UP];
+        [self.delegate snakeView:self didChangeDirection:UP];
         
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionDown) {
         
-        [self.delegate changeDirection:self to:DOWN];
+        [self.delegate snakeView:self didChangeDirection:DOWN];
     }
 }
 

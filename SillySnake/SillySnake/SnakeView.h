@@ -14,14 +14,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol SnakeViewDelegate
-
-- (NSMutableArray*)getSnake:(SnakeView *)view;
-
-- (NSValue*)getFruit:(SnakeView *)view;
-
-- (void)changeDirection:(SnakeView *)view to:(SnakeDirection)direction;
-
+@protocol SnakeViewDelegate <NSObject>
+- (NSArray*)snakeBodyForSnakeView:(SnakeView *)view;
+- (NSValue*)fruitForSnakeView:(SnakeView *)view;
+- (void)snakeView:(SnakeView *)view didChangeDirection:(SnakeDirection)direction;
 @end
 
 @interface SnakeView : UIView
