@@ -16,6 +16,7 @@
 @property Snake *snake;
 @property NSTimer *timer;
 @property UIView *startView;
+@property SnakeDirection nextDirection;
 
 @end
 
@@ -93,6 +94,8 @@
 
 - (void)updateTime:(NSTimer *)timer {
     
+    [self.snake changeDirection:self.nextDirection];
+    
     bool added = [self.snake move];
     
     [self.snakeView setNeedsDisplay];
@@ -125,7 +128,7 @@
 
 - (void)changeDirection:(SnakeView *)view to:(SnakeDirection)direction {
     
-    [self.snake changeDirection:direction];
+    self.nextDirection = direction;    
 }
 
 @end
