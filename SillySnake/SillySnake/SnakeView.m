@@ -9,12 +9,20 @@
 #import "SnakeView.h"
 #import "Snake.h"
 
+@interface SnakeView ()
+{
+    NSInteger sizeOfDot;
+}
+@end
+
 @implementation SnakeView
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     
     [self registerSwipeGesture];
+    
+    sizeOfDot = 21;
     
     return self;
 }
@@ -41,7 +49,7 @@
         
         [body[i] getValue:&dot];
         
-        CGContextAddRect(context, CGRectMake(dot.x*21, dot.y*21, 20, 20));
+        CGContextAddRect(context, CGRectMake(dot.x*sizeOfDot, dot.y*sizeOfDot, sizeOfDot-1, sizeOfDot-1));
 
         [[UIColor colorWithRed:0 green:0 blue:0 alpha:1] set];
 
@@ -52,7 +60,7 @@
     
     [fruit getValue:&fruitDot];
 
-    CGContextAddRect(context, CGRectMake(fruitDot.x*21, fruitDot.y*21, 20, 20));
+    CGContextAddRect(context, CGRectMake(fruitDot.x*sizeOfDot, fruitDot.y*sizeOfDot, sizeOfDot-1, sizeOfDot-1));
     
     [[UIColor colorWithRed:1 green:0 blue:0 alpha:1] set];
     
@@ -82,19 +90,19 @@
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
         
-        [self.delegate snakeView:self didChangeDirection:LEFT];
+        [self.delegate snakeView:self didChangeDirection:SnakeDirectionLeft];
         
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         
-        [self.delegate snakeView:self didChangeDirection:RIGHT];
+        [self.delegate snakeView:self didChangeDirection:SnakeDirectionRight];
         
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionUp) {
         
-        [self.delegate snakeView:self didChangeDirection:UP];
+        [self.delegate snakeView:self didChangeDirection:SnakeDirectionUp];
         
     } else if (swipe.direction == UISwipeGestureRecognizerDirectionDown) {
         
-        [self.delegate snakeView:self didChangeDirection:DOWN];
+        [self.delegate snakeView:self didChangeDirection:SnakeDirectionDown];
     }
 }
 

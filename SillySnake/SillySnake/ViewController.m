@@ -10,6 +10,8 @@
 #import "Snake.h"
 #import "SnakeView.h"
 
+const int sizeOfDot = 21;
+
 @interface ViewController ()
 
 @property SnakeView *snakeView;
@@ -69,11 +71,11 @@
     
     CGSize size = self.view.safeAreaLayoutGuide.layoutFrame.size;
 
-    int maxX = size.width / 21 - 1;
-    int maxY = size.height / 21 - 1;
+    int maxX = size.width / sizeOfDot - 1;
+    int maxY = size.height / sizeOfDot - 1;
     
-    self.snake = [[Snake alloc] initWithDirection:LEFT maxX:maxX maxY:maxY length:2];
-    
+    self.snake = [[Snake alloc] initWithDirection:SnakeDirectionLeft maxX:maxX maxY:maxY length:2];
+
     [self addSnakeView];
     
     [self.startView removeFromSuperview];
@@ -116,14 +118,14 @@
 
 #pragma mark - SnakeViewDelegate
 
-- (nonnull NSMutableArray *)snakeBodyForSnakeView:(nonnull SnakeView *)view {
+- (nonnull NSArray *)snakeBodyForSnakeView:(nonnull SnakeView *)view {
 
-    return [self.snake getSnakeBody];
+    return self.snake.body;
 }
 
 - (nonnull NSValue *)fruitForSnakeView:(nonnull SnakeView *)view {
     
-    return [self.snake getFruit];
+    return self.snake.fruit;
 }
 
 - (void)snakeView:(SnakeView *)view didChangeDirection:(SnakeDirection)direction {

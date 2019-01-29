@@ -36,7 +36,7 @@
         self.maxY = maxY;
         body = [[NSMutableArray alloc] init];
         
-        for (int i = 0; i < length; i++) {
+        for (NSInteger i = 0; i < length; i++) {
             
             [body addObject:[self createDotWithX:(self.maxX/2)+i y:self.maxY/2]];
         }
@@ -48,22 +48,12 @@
     return self;
 }
 
-//- (NSValue*)getFruit {
-//
-//    return self.fruit;
-//}
-//
-//- (NSArray*)getSnakeBody
-//{
-//    return self.body;
-//}
-
 - (NSArray *)body
 {
     return [body copy];
 }
 
-- (NSValue*)createDotWithX:(int)x y:(int)y {
+- (NSValue*)createDotWithX:(NSInteger)x y:(NSInteger)y {
     
     Dot dot;
     dot.x = x;
@@ -80,8 +70,8 @@
     NSUInteger index = 0;
     
     do {
-        int randomX = arc4random_uniform(self.maxX);
-        int randomY = arc4random_uniform(self.maxY);
+        NSInteger randomX = arc4random() % self.maxX;//arc4random_uniform(self.maxX);
+        NSInteger randomY = arc4random() % self.maxY;//arc4random_uniform(self.maxY);
         
         food = [self createDotWithX:randomX y:randomY];
         
@@ -122,8 +112,8 @@
     
     Dot dotType;
     [dot getValue:&dotType];
-    int x = dotType.x;
-    int y = dotType.y;
+    NSInteger x = dotType.x;
+    NSInteger y = dotType.y;
     
     if ((index == NSNotFound)
         && (x >= 0 && x <= self.maxX)
@@ -146,23 +136,23 @@
     NSValue *firstValue = self.body[0];
     Dot firstDot;
     [firstValue getValue:&firstDot];
-    int nextX = firstDot.x;
-    int nextY = firstDot.y;
+    NSInteger nextX = firstDot.x;
+    NSInteger nextY = firstDot.y;
     
     switch (self.direction) {
-        case RIGHT:
+        case SnakeDirectionRight:
             if (nextX == self.maxX) nextX = 0;
             else nextX += 1;
             break;
-        case LEFT:
+        case SnakeDirectionLeft:
             if (nextX == 0) nextX = self.maxX;
             else nextX -= 1;
             break;
-        case UP:
+        case SnakeDirectionUp:
             if (nextY == 0) nextY = self.maxY;
             else nextY -= 1;
             break;
-        case DOWN:
+        case SnakeDirectionDown:
             if (nextY == self.maxY) nextY = 0;
             else nextY += 1;
             break;
@@ -176,17 +166,17 @@
     BOOL changed = YES;
         
     switch (gesture) {
-        case RIGHT:
-            changed = self.direction != LEFT;
+        case SnakeDirectionRight:
+            changed = self.direction != SnakeDirectionLeft;
             break;
-        case LEFT:
-            changed = self.direction != RIGHT;
+        case SnakeDirectionLeft:
+            changed = self.direction != SnakeDirectionRight;
             break;
-        case UP:
-            changed = self.direction != DOWN;
+        case SnakeDirectionUp:
+            changed = self.direction != SnakeDirectionDown;
             break;
-        case DOWN:
-            changed = self.direction != UP;
+        case SnakeDirectionDown:
+            changed = self.direction != SnakeDirectionUp;
             break;
     }
 
